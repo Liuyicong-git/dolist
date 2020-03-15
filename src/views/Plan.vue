@@ -1,6 +1,6 @@
 <template>
   <div >
-    <FullCalendar
+    <FullCalendar 
       class="full-c"
       locale="zh-cn"
       :header="header"
@@ -20,11 +20,11 @@
     <div>
     <div class="do-container">
           <h4 style="color:#666;padding:8px 10px;">待办事项 <span style="float:right;">15/24</span></h4>
-          <progress-bar 
+          <!-- <progress-bar 
            :val="15/24*100" 
            size="large"
            :bar-border-radius=10
-           style="padding: 0px 10px;" text-align="right" />
+           style="padding: 0px 10px;" text-align="right" /> -->
           <div class="event-card"   v-if="eventsDetails.length == 0" >
               今天还没有行程，快快添加吧 <span @click="toOption" style="color:red;">操作</span>
           </div>  
@@ -164,8 +164,10 @@ export default {
 <style lang="scss" scoped>
   .do-container{
      background-color:#fff;
-     border-top: 1px solid #e5e5e5;
+     border: 1px solid #e5e5e5;
+     margin: 0 10px;
      margin-top:10px;
+     border-radius: 5px;
   }
   .event-card{
     margin: 8px 10px;
@@ -180,6 +182,7 @@ export default {
 
   /deep/  .full-c {
      margin-top:5px;
+     margin: 3px 8px;
      .fc-prev-button{
         background-color:transparent;
         border: none;
@@ -191,9 +194,9 @@ export default {
         color: #FC7930;
       }
       .fc-header-toolbar{
-        float: left;
+        // float: left;
         margin-bottom:0.5em;
-        font-size: 1em;
+        font-size: 1.5em;
       }
   }
   .fc{

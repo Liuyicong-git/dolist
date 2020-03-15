@@ -1,15 +1,14 @@
 <template>
   <div style="height:100%;" >
           <div class="head-title">
-              <div style="padding-top:17%;">
-               
-                <span style="width:30%;display:inline-block;text-align:center;">
-                    <h4 style="padding-bottom:5px;">{{moment(new Date()).format('MM月DD日')}}</h4>
+              <div  class="weather-content" >
+                <span  class="weather-city">
+                    <h4 >{{moment(new Date()).format('MM月DD日')}}</h4>
                     <h4 >西安</h4>  
                 </span>
-                <span style="width:50%;display:inline-block;text-align:center;">
-                    <p>{{weatherInfo.tem}}</p>
-                    <p>{{weatherInfo.wea}}</p>
+                <span class="weather-info" style="width:50%;display:inline-block;text-align:center;">
+                    <p class="weather-temp">{{weatherInfo.tem + '°C'}}</p>
+                    <p style="font-size:1em;">{{ '天气  ' + weatherInfo.wea}}</p>
                     <p> {{weatherInfo.win}} {{weatherInfo.win_speed}}</p>
                 </span>
                 
@@ -18,39 +17,29 @@
 
           <div>
           </div>  
-          <div style="margin:5px;">
-            <div class="event-card"   v-if="eventsDetails.length == 0" >
+          <div  class="event-box">
+            <!-- <div class="event-card"   v-if="eventsDetails.length == 0" >
                 今天还没有行程，快快添加吧 <span @click="toOption" style="color:red;">操作</span>
-            </div>   
+            </div>    -->
             <div class="event-card " v-for=" (item , index) in eventsDetails" :key="index" >
               <div class="event-container">
                 <div class="event-time">
                     <h2 style="color:#555;">{{ moment(item.start).format('HH:mm')}}</h2>
                 </div>
                 <div class="event-content">
-                    <div>{{item.title}} </div>
-                    <div style="padding-top:5px;margin-bottom:5px;">{{item.desc}}</div>
+                    <div> <span>{{item.title}}</span> </div>
+                    <div ><p>{{item.desc}}</p></div>
                     <!-- <div style="margin-bottom:5px;">{{moment(item.end).format('YYYY-MM-DD hh:mm')}}</div> -->
-                    <rater v-model="start" star="✩" disabled active-color="#FF9900" :margin="1"></rater>
+                    <!-- <rater v-model="start" star="✩" disabled active-color="#FF9900" :margin="1"></rater> -->
                 </div> 
                 <div class="event-flag">
                     <div> <x-switch :title="''" :value="true"></x-switch></div>
                 </div>    
               </div>
-
-                    <!-- <div class="event-card-title">
-                        <x-button mini type="primary">{{ moment(item.start).format('HH:mm')}}</x-button>
-                        <span style="padding-left:10px;">{{item.title}}</span>
-                        <span @click="toOption(item)" style="float:right;">操作</span>
-                    </div>  
-                    <div >
-                        <x-button mini type="primary" style="visibility:hidden;">{{ moment(item.start).format('HH:mm')}}</x-button>
-                        <span style="padding-left:18px;"><span>{{item.desc}}</span></span>
-                    </div>  
-                    <div class="event-card-foot">
-                        <x-button mini type="primary">截止时间</x-button><span style="padding-left:10px;">{{moment(item.end).format('YYYY-MM-DD hh:mm')}}</span>
-                    </div>       -->
             </div> 
+          </div>
+          <div class="add-event">
+              <x-icon type="ios-plus" size="60" class="add-color" @click="toAdd"></x-icon>
           </div>
   </div>
 </template>
@@ -99,61 +88,84 @@ export default {
         })
       })
     },
-    toOption (item) {
+    toAdd () {
       this.$router.push({
         name: 'addEvent',
-        params: {...item, dateStr: moment(new Date()).format('YYYY-MM-DD')}
+        params: {dateStr: moment(new Date()).format('YYYY-MM-DD')}
       })
     }
   }
 }
 </script>
 <style lang="scss" scoped>
+    .event-box {
+      margin:20px;
+    }
     .today-container {
-     // background-color:#fff;
       border-top: 1px solid #e5e5e5;
       margin-top:10px;
     }
-    // .event-card{
-    //   margin: 8px 10px;
-    //   border: 1px solid #e5e5e5;
-    //   .event-card-title {
-    //     padding: 10px 10px;
-    //   }
-    //   .event-card-foot {
-    //     padding: 10px 10px;
-    //   }
-    // }
+    .add-event{
+        position: fixed !important;
+        bottom:150px!important;
+        right: 30px;
+        z-index: 999999!important;
+        .add-color{
+          fill: #FC7930;
+        }
+    }
     .event-container{
-       margin: 8px 10px;
+      //  margin: 8px 10px;
        border-bottom: 1px solid #e5e5e5;
        align-items:center;
-      //  border: 1px solid #e5e5e5;
        display: flex;
        .event-time {
          width: 30%;
          text-align: center;
-
        }
        .event-content{
+         padding: 5px 0;
          width: 50%;
-         padding-left:20px;
+         span {
+            color: #333;
+            font-size: 30px;
+         }
+         p{
+            color: #888;
+            font-size: 28px;
+         }
+       }
+       .event-flag{
+         width: 20%;
+         padding-right: 20px;
      
        }
-       /deep/.event-flag{
-         width: 20%;
-         .weui-switch{
-           height: 20px!important;
-         }
-        /deep/ .weui-switch:after, .weui-switch-cp__box:after{
-           height: 18px!important;
-         }
-       }
-
     }
     .head-title{
       background: url('../assets/head_title.jpg');
-      height: 300px;
+      height: 320px;
+      background-size:cover;
+       -moz-box-shadow: 2px 2px 8px #efefef;
+      box-shadow: 2px 2px 8px #efefef;
     }
+    .weather-content{
+        padding-top:15%;
+        display: flex;
+        align-items:center;
+        .weather-city{
+          padding-top:20px;
+          width:40%;
+          display:inline-block;
+          text-align:center;
+        }
+        .weather-info{
+           width:50%;
+           .weather-temp{
+             font-size:2em;
+             height:80px;
+           }
+        }
+    }
+   
 
 </style>

@@ -4,13 +4,13 @@
         <tabbar v-model="barIndex" slot="bottom"  class="tabbarStyle">
             <tabbar-item  selected  link="/home">
               <!-- <img slot="icon" src="../assets/demo/icon_nav_msg.png"> -->
-              <span slot="label">首页</span>
+              <span slot="label">日程</span>
             </tabbar-item>
             <tabbar-item link="/plan">
               <!-- <img slot="icon" src="../assets/demo/icon_nav_article.png"> -->
-              <span slot="label">日程</span>
+              <span slot="label">管理</span>
             </tabbar-item>
-            <tabbar-item badge="2">
+            <tabbar-item link="/toMe">
               <!-- <img slot="icon" src="../assets/demo/icon_nav_cell.png"> -->
               <span slot="label">我</span>
             </tabbar-item>

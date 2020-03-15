@@ -19,15 +19,18 @@ const routes = [
         path: '/plan',
         name: 'Plan',
         component: Plan
-      },
-
-      {
-        path: 'addEvent',
-        name: 'addEvent',
-        component: () => import('../views/addEvent.vue')
       }
     ]
-
+  },
+  {
+    path: '/addEvent',
+    name: 'addEvent',
+    component: () => import('../views/addEvent.vue')
+  },
+  {
+    path: '/toMe',
+    name: 'toMe',
+    component: () => import('../views/myConfig.vue')
   }
 
 ]

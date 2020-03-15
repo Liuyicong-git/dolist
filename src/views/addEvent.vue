@@ -60,12 +60,26 @@ export default {
       this.$router.push({name: 'home'})
     },
     submit () {
+      if (new Date(this.requestEntity.event_start_date) > new Date(this.requestEntity.event_end_date)) {
+        this.$vux.toast.text('开始时间需要大于结束时间~~~~'); return
+      }
+      if (this.requestEntity.event_start_date === this.requestEntity.event_end_date) {
+        this.$vux.toast.text('开始时间和结束时间不能相同~~~~'); return
+      }
+      if (!this.requestEntity.event_title) { this.$vux.toast.text('事件名称不能为空哦~~~~'); return }
       this.http.post('/event/', this.requestEntity).then(res => {
         this.$vux.toast.text('新增成功')
         this.$router.push({name: 'home', params: {day: this.requestEntity.event_start_date}})
       })
     },
     update () {
+      if (new Date(this.requestEntity.event_start_date) > new Date(this.requestEntity.event_end_date)) {
+        this.$vux.toast.text('开始时间需要大于结束时间~~~~'); return
+      }
+      if (this.requestEntity.event_start_date === this.requestEntity.event_end_date) {
+        this.$vux.toast.text('开始时间和结束时间不能相同~~~~'); return
+      }
+      if (!this.requestEntity.event_title) { this.$vux.toast.text('事件名称不能为空哦~~~~'); return }
       this.http.put('/event/', this.requestEntity).then(res => {
         this.$vux.toast.text('修改成功')
         this.$router.push({name: 'home', params: {day: this.requestEntity.event_start_date}})
