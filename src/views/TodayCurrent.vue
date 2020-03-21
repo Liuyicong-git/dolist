@@ -1,46 +1,46 @@
 <template>
   <div style="height:100%;" >
-          <div class="head-title">
-              <div  class="weather-content" >
-                <span  class="weather-city">
-                    <h4 >{{moment(new Date()).format('MM月DD日')}}</h4>
-                    <h4 >西安</h4>  
-                </span>
-                <span class="weather-info" style="width:50%;display:inline-block;text-align:center;">
-                    <p class="weather-temp">{{weatherInfo.tem + '°C'}}</p>
-                    <p style="font-size:1em;">{{ '天气  ' + weatherInfo.wea}}</p>
-                    <p> {{weatherInfo.win}} {{weatherInfo.win_speed}}</p>
-                </span>
-                
-              </div>
+      <div class="head-title">
+          <div  class="weather-content" >
+            <span  class="weather-city">
+                <h4 >{{moment(new Date()).format('MM月DD日')}}</h4>
+                <h4 >西安</h4>  
+            </span>
+            <span class="weather-info" style="width:50%;display:inline-block;text-align:center;">
+                <p class="weather-temp">{{weatherInfo.tem + '°C'}}</p>
+                <p style="font-size:1em;">{{ '天气  ' + weatherInfo.wea}}</p>
+                <p> {{weatherInfo.win}} {{weatherInfo.win_speed}}</p>
+            </span>
+            
           </div>
+      </div>
 
-          <div>
-          </div>  
-          <div  class="event-box">
-            <!-- <div class="event-card"   v-if="eventsDetails.length == 0" >
-                今天还没有行程，快快添加吧 <span @click="toOption" style="color:red;">操作</span>
-            </div>    -->
-            <div class="event-card " v-for=" (item , index) in eventsDetails" :key="index" >
-              <div class="event-container">
-                <div class="event-time">
-                    <h2 style="color:#555;">{{ moment(item.start).format('HH:mm')}}</h2>
-                </div>
-                <div class="event-content">
-                    <div> <span>{{item.title}}</span> </div>
-                    <div ><p>{{item.desc}}</p></div>
-                    <!-- <div style="margin-bottom:5px;">{{moment(item.end).format('YYYY-MM-DD hh:mm')}}</div> -->
-                    <!-- <rater v-model="start" star="✩" disabled active-color="#FF9900" :margin="1"></rater> -->
-                </div> 
-                <div class="event-flag">
-                    <div> <x-switch :title="''" :value="true"></x-switch></div>
-                </div>    
-              </div>
+      <div>
+      </div>  
+      <div  class="event-box">
+          <div class="event-card"   v-if="eventsDetails.length == 0" >
+            今天还没有待办事项，快快添加吧 <span @click="toAdd" style="color:red;">添加待办事项</span>
+        </div>   
+        <div class="event-card " v-for=" (item , index) in eventsDetails" :key="index" >
+          <div class="event-container">
+            <div class="event-time">
+                <h2 style="color:#555;">{{ moment(item.start).format('HH:mm')}}</h2>
+            </div>
+            <div class="event-content">
+                <div> <span>{{item.title}}</span> </div>
+                <div ><p>{{item.desc}}</p></div>
+                <!-- <div style="margin-bottom:5px;">{{moment(item.end).format('YYYY-MM-DD hh:mm')}}</div> -->
+                <!-- <rater v-model="start" star="✩" disabled active-color="#FF9900" :margin="1"></rater> -->
             </div> 
+            <div class="event-flag">
+                <div> <x-switch :title="''" :value="true"></x-switch></div>
+            </div>    
           </div>
-          <div class="add-event">
-              <x-icon type="ios-plus" size="60" class="add-color" @click="toAdd"></x-icon>
-          </div>
+        </div> 
+      </div>
+      <div class="add-event">
+          <x-icon type="ios-plus" size="60" class="add-color" @click="toAdd"></x-icon>
+      </div>
   </div>
 </template>
 
@@ -69,7 +69,7 @@ export default {
       this.getWeather()
     },
     getWeather () {
-      this.http.get('https://tianqiapi.com/api?version=v6&appid=33799233&appsecret=6EMf0eeV').then(res => {
+      this.http.get('https://tianqiapi.com/api?version=v6&appid=33799233&appsecret=6EMf0eeV&city=西安').then(res => {
         this.weatherInfo = res.data
       })
     },
